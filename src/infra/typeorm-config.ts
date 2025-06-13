@@ -1,15 +1,15 @@
-import { DataSourceOptions } from "typeorm";
-import { env } from "process";
+import { DataSource } from "typeorm";
+import "dotenv/config";
 import { PatientModel } from "../model/patient-model";
 
-export const AppDataSource: DataSourceOptions = {
+export const AppDataSource = new DataSource({
   type: "mysql",
-  host: env.MYSQLDB_HOST,
-  port: Number(env.MYSQLDB_DOCKER_PORT),
-  username: env.MYSQLDB_USER,
-  password: env.MYSQLDB_ROOT_PASSWORD,
-  database: env.MYSQLDB_DATABASE,
+  host: "localhost",
+  port: 3307,
+  username: process.env.MYSQLDB_USER,
+  password: process.env.MYSQLDB_ROOT_PASSWORD,
+  database: process.env.MYSQLDB_DATABASE,
   synchronize: true,
   logging: false,
   entities: [PatientModel],
-};
+});

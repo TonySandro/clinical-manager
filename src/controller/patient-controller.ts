@@ -14,8 +14,10 @@ export class PatientController implements IPatientController {
     try {
       const patient = req.body as PatientModel;
       await this.patientService.createPatient(patient);
+      res.status(201).json({ message: "Paciente criado com sucesso" });
     } catch (error) {
       console.error("Erro no controller ao criar paciente:", error);
+      res.status(500).json({ message: "Erro ao criar paciente" });
     }
   }
 }

@@ -17,7 +17,7 @@ export class PatientRouter {
   }
 
   private initializeRoutes() {
-    this.router.post("/", async (req, res, next) => {
+    this.router.post("/patients", async (req, res, next) => {
       await this.patientController.create(req, res).catch(next);
     });
   }
