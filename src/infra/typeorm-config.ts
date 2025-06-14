@@ -1,6 +1,7 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
 import { PatientModel } from "../model/patient-model";
+import { AnamnesisModel } from "../model/anamnesis-model";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -11,5 +12,5 @@ export const AppDataSource = new DataSource({
   database: process.env.MYSQLDB_DATABASE,
   synchronize: true,
   logging: false,
-  entities: [PatientModel],
+  entities: [PatientModel, AnamnesisModel],
 });
