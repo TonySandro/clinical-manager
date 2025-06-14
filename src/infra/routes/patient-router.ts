@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { inject, injectable } from "tsyringe";
-import { IPatientController } from "../../controller/contracts/ipatient-controller";
+import { IPatientController } from "../../controller/contracts/i-patient-controller";
 
 @injectable()
 export class PatientRouter {
