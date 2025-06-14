@@ -16,4 +16,8 @@ export class PatientRepository implements IPatientRepository {
     const newPatient = this.ormRepo.create(patient);
     return await this.ormRepo.save(newPatient);
   }
+
+  async findById(id: string): Promise<PatientModel | null> {
+    return await this.ormRepo.findOne({ where: { id } });
+  }
 }

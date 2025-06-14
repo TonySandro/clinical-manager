@@ -20,5 +20,9 @@ export class PatientRouter {
     this.router.post("/patients", async (req, res, next) => {
       await this.patientController.create(req, res).catch(next);
     });
+
+    this.router.get("/patients/:id", async (req, res, next) => {
+      await this.patientController.getById(req, res).catch(next);
+    });
   }
 }

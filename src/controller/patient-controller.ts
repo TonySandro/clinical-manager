@@ -14,10 +14,26 @@ export class PatientController implements IPatientController {
     try {
       const patient = req.body as PatientModel;
       await this.patientService.create(patient);
+
       res.status(201).json({ message: "Paciente criado com sucesso" });
     } catch (error) {
       console.error("Erro no controller ao criar paciente:", error);
       res.status(500).json({ message: "Erro ao criar paciente" });
+    }
+  }
+
+  async getById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const result = await this.patientService.findById(id);
+
+      if (!result)
+        return res.status(404).json({ message: "Paciente não encontrado" });
+
+      return res.status(200).json(result);
+    } catch (error) {
+      console.error("Erro no controller ao buscar paciente por ID:", error);
+      return res.status(500).json({ message: "Erro ao buscar paciente" });
     }
   }
 }

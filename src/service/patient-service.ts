@@ -19,4 +19,13 @@ export class PatientService implements IPatientService {
       throw new Error("Erro interno ao criar paciente");
     }
   }
+
+  public async findById(id: string): Promise<PatientModel | null> {
+    try {
+      return await this.patientRepository.findById(id);
+    } catch (error) {
+      console.error("Erro ao buscar paciente por ID:", error);
+      throw new Error("Erro interno ao buscar paciente");
+    }
+  }
 }
