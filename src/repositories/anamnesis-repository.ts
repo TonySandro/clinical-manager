@@ -16,4 +16,8 @@ export class AnamnesisRepository implements IAnamnesisRepository {
     const newAnamnesis = this.ormRepo.create(anamnesis);
     return await this.ormRepo.save(newAnamnesis);
   }
+
+  async findById(id: string): Promise<AnamnesisModel | null> {
+    return await this.ormRepo.findOne({ where: { id } });
+  }
 }

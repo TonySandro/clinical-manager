@@ -20,5 +20,9 @@ export class AnamnesisRouter {
     this.router.post("/anamnesis", async (req, res, next) => {
       await this.anamnesisController.create(req, res).catch(next);
     });
+
+    this.router.get("/anamnesis/:id", async (req, res, next) => {
+      await this.anamnesisController.getById(req, res).catch(next);
+    });
   }
 }

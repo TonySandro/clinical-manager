@@ -21,4 +21,19 @@ export class AnamnesisController {
       return;
     }
   }
+
+  async getById(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const result = await this.anamnesisService.findById(id);
+
+      if (!result)
+        return res.status(404).json({ message: "Anamnese não encontrada" });
+
+      return res.status(200).json(result);
+    } catch (error) {
+      console.error("Erro no controller ao buscar anamnese por ID:", error);
+      return res.status(500).json({ message: "Erro ao buscar anamnese" });
+    }
+  }
 }

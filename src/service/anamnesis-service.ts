@@ -14,4 +14,8 @@ export class AnamnesisService implements IAnamnesisService {
   async create(data: AnamnesisRequestDto): Promise<AnamnesisModel> {
     return await this.repository.create(data);
   }
+
+  async findById(id: string): Promise<AnamnesisModel | null> {
+    return await this.repository.findById(id);
+  }
 }
