@@ -37,4 +37,13 @@ export class PatientService implements IPatientService {
       throw new Error("Erro interno ao buscar pacientes");
     }
   }
+
+  async delete(id: string): Promise<void> {
+    try {
+      await this.patientRepository.delete(id);
+    } catch (error) {
+      console.error("Erro ao deletar paciente:", error);
+      throw new Error("Erro interno ao deletar paciente");
+    }
+  }
 }

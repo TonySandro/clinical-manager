@@ -28,5 +28,9 @@ export class PatientRouter {
     this.router.get("/all-patients", async (req, res, next) => {
       await this.patientController.findAll(req, res).catch(next);
     });
+
+    this.router.delete("/patients/:id", async (req, res, next) => {
+      await this.patientController.delete(req, res).catch(next);
+    });
   }
 }

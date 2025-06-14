@@ -46,4 +46,15 @@ export class PatientController implements IPatientController {
       return res.status(500).json({ message: "Erro ao buscar pacientes" });
     }
   }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      await this.patientService.delete(id);
+      return res.status(204).send();
+    } catch (error) {
+      console.error("Erro no controller ao deletar paciente:", error);
+      return res.status(500).json({ message: "Erro ao deletar paciente" });
+    }
+  }
 }

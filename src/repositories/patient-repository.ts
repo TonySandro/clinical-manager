@@ -24,4 +24,8 @@ export class PatientRepository implements IPatientRepository {
   async findAll(): Promise<PatientModel[]> {
     return await this.ormRepo.find();
   }
+
+  async delete(id: string): Promise<void> {
+    await this.ormRepo.delete(id);
+  }
 }
