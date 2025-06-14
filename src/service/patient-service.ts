@@ -28,4 +28,13 @@ export class PatientService implements IPatientService {
       throw new Error("Erro interno ao buscar paciente");
     }
   }
+
+  async findAll(): Promise<PatientModel[]> {
+    try {
+      return await this.patientRepository.findAll();
+    } catch (error) {
+      console.error("Erro ao buscar todos os pacientes:", error);
+      throw new Error("Erro interno ao buscar pacientes");
+    }
+  }
 }

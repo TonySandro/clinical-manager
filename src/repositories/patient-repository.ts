@@ -20,4 +20,8 @@ export class PatientRepository implements IPatientRepository {
   async findById(id: string): Promise<PatientModel | null> {
     return await this.ormRepo.findOne({ where: { id } });
   }
+
+  async findAll(): Promise<PatientModel[]> {
+    return await this.ormRepo.find();
+  }
 }

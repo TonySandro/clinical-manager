@@ -36,4 +36,14 @@ export class PatientController implements IPatientController {
       return res.status(500).json({ message: "Erro ao buscar paciente" });
     }
   }
+
+  async findAll(req: Request, res: Response): Promise<Response> {
+    try {
+      const patients = await this.patientService.findAll();
+      return res.status(200).json(patients);
+    } catch (error) {
+      console.error("Erro no controller ao buscar todos os pacientes:", error);
+      return res.status(500).json({ message: "Erro ao buscar pacientes" });
+    }
+  }
 }

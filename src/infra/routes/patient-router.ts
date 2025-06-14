@@ -24,5 +24,9 @@ export class PatientRouter {
     this.router.get("/patients/:id", async (req, res, next) => {
       await this.patientController.getById(req, res).catch(next);
     });
+
+    this.router.get("/all-patients", async (req, res, next) => {
+      await this.patientController.findAll(req, res).catch(next);
+    });
   }
 }
