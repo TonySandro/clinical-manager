@@ -18,7 +18,31 @@ export class PatientModel {
   @Column()
   name!: string;
 
-  @OneToOne(() => AnamnesisModel, { nullable: true, eager: true })
+  @Column()
+  age!: number;
+
+  @Column()
+  schoolYear!: string;
+
+  @Column()
+  dateOfBirth!: Date;
+
+  @Column()
+  gender!: string;
+
+  @Column()
+  address!: string;
+
+  @Column()
+  phoneNumber!: string;
+
+  @Column()
+  motherName!: string;
+
+  @Column()
+  fatherName?: string;
+
+  @OneToOne(() => AnamnesisModel, { nullable: true })
   @JoinColumn({ name: "anamnesis_id" })
   anamnesis?: AnamnesisModel;
 
