@@ -11,9 +11,8 @@ export class AnamnesisController {
   ) {}
   async create(req: Request, res: Response): Promise<void> {
     try {
-      const data = req.body as AnamnesisModel;
+      await this.anamnesisService.create(req.body);
 
-      await this.anamnesisService.create(data);
       res.status(201).json({ message: "Anamnese criada com sucesso" });
     } catch (error) {
       console.error("Erro no controller ao criar anamnese:", error);
@@ -34,6 +33,17 @@ export class AnamnesisController {
     } catch (error) {
       console.error("Erro no controller ao buscar anamnese por ID:", error);
       return res.status(500).json({ message: "Erro ao buscar anamnese" });
+    }
+  }
+
+  async delete(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      await this.anamnesisService.delete(id);
+      return res.status(204).send();
+    } catch (error) {
+      console.error("Erro no controller ao deletar anamnese:", error);
+      return res.status(500).json({ message: "Erro ao deletar anamnese" });
     }
   }
 }

@@ -1,6 +1,8 @@
+import { AnamnesisRequestDto } from "../../dto/anamnesis/anamnesis-request-dto";
 import { AnamnesisModel } from "../../model/anamnesis-model";
 
 export interface IAnamnesisService {
-  create(anamnesis: AnamnesisModel): Promise<AnamnesisModel>;
+  create(anamnesis: AnamnesisRequestDto): Promise<AnamnesisModel>;
   findById(id: string): Promise<AnamnesisModel | null>;
+  delete(id: string): Promise<void>;
 }
