@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { AnamnesisModel } from "./anamnesis-model";
 
 @Entity("patient")
 export class PatientModel {
@@ -15,8 +18,12 @@ export class PatientModel {
   @Column()
   name!: string;
 
-  @Column({ nullable: true })
-  accessToken!: string;
+  @OneToOne(() => AnamnesisModel, { nullable: true, eager: true })
+  @JoinColumn({ name: "anamnesis_id" })
+  anamnesis?: AnamnesisModel;
+
+  @Column({ type: "json", nullable: true })
+  protocols?: any[];
 
   @CreateDateColumn()
   createdAt!: Date;
