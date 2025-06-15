@@ -32,5 +32,9 @@ export class PatientRouter {
     this.router.delete("/patients/:id", async (req, res, next) => {
       await this.patientController.delete(req, res).catch(next);
     });
+
+    this.router.patch("/patients/:id", async (req, res, next) => {
+      await this.patientController.update(req, res).catch(next);
+    });
   }
 }

@@ -46,4 +46,16 @@ export class PatientService implements IPatientService {
       throw new Error("Erro interno ao deletar paciente");
     }
   }
+
+  async update(
+    id: string,
+    patient: PatientModel
+  ): Promise<PatientModel | null> {
+    try {
+      return await this.patientRepository.update(id, patient);
+    } catch (error) {
+      console.error("Erro ao atualizar paciente:", error);
+      throw new Error("Erro interno ao atualizar paciente");
+    }
+  }
 }

@@ -28,4 +28,17 @@ export class PatientRepository implements IPatientRepository {
   async delete(id: string): Promise<void> {
     await this.ormRepo.delete(id);
   }
+
+  async update(
+    id: string,
+    patient: PatientModel
+  ): Promise<PatientModel | null> {
+    const existingPatient = await this.ormRepo.findOne({ where: { id } });
+    if (!existingPatient) {
+      return null;
+    }
+
+    const updatedPatient = Object.assign(existingPatient, patient);
+    return await this.ormRepo.save(updatedPatient);
+  }
 }

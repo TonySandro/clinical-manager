@@ -5,4 +5,5 @@ export interface IPatientService {
   findById(id: string): Promise<PatientModel | null>;
   findAll(): Promise<PatientModel[]>;
   delete(id: string): Promise<void>;
+  update(id: string, patient: PatientModel): Promise<PatientModel | null>;
 }
