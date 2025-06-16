@@ -13,10 +13,6 @@ export class AnamnesisModel {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @OneToOne(() => PatientModel, { nullable: false })
-  @JoinColumn({ name: "patient_id" })
-  patient!: PatientModel;
-
   @Column()
   patientName!: string;
 

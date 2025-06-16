@@ -24,5 +24,9 @@ export class AnamnesisRouter {
     this.router.get("/anamnesis/:id", async (req, res, next) => {
       await this.anamnesisController.getById(req, res).catch(next);
     });
+
+    this.router.delete("/anamnesis/:id", async (req, res, next) => {
+      await this.anamnesisController.delete(req, res).catch(next);
+    });
   }
 }

@@ -14,7 +14,7 @@ export class AnamnesisRepository implements IAnamnesisRepository {
     this.ormRepo = this.database.getDataSource().getRepository(AnamnesisModel);
   }
 
-  async create(anamnesis: AnamnesisModel): Promise<AnamnesisModel> {
+  async create(anamnesis: AnamnesisRequestDto): Promise<AnamnesisModel> {
     const newAnamnesis = this.ormRepo.create(anamnesis);
     return await this.ormRepo.save(newAnamnesis);
   }
@@ -25,15 +25,5 @@ export class AnamnesisRepository implements IAnamnesisRepository {
 
   async delete(id: string): Promise<void> {
     await this.ormRepo.delete(id);
-  }
-
-  createEntityWithPatient(
-    data: AnamnesisRequestDto,
-    patient: PatientModel
-  ): AnamnesisModel {
-    return this.ormRepo.create({
-      ...data,
-      patient: patient,
-    });
   }
 }

@@ -18,7 +18,10 @@ export class PatientRepository implements IPatientRepository {
   }
 
   async findById(id: string): Promise<PatientModel | null> {
-    return await this.ormRepo.findOne({ where: { id } });
+    return await this.ormRepo.findOne({
+      where: { id },
+      relations: ["anamnesis"],
+    });
   }
 
   async findAll(): Promise<PatientModel[]> {
@@ -31,7 +34,7 @@ export class PatientRepository implements IPatientRepository {
 
   async update(
     id: string,
-    patient: PatientModel
+    patient: Partial<PatientModel>
   ): Promise<PatientModel | null> {
     const existingPatient = await this.ormRepo.findOne({ where: { id } });
     if (!existingPatient) {

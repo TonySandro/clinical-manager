@@ -43,7 +43,7 @@ export class PatientModel {
   fatherName?: string;
 
   @OneToOne(() => AnamnesisModel, { nullable: true })
-  @JoinColumn({ name: "anamnesis_id" })
+  @JoinColumn()
   anamnesis?: AnamnesisModel;
 
   @Column({ type: "json", nullable: true })

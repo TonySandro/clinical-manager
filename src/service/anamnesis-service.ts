@@ -16,16 +16,18 @@ export class AnamnesisService implements IAnamnesisService {
   ) {}
 
   async create(data: AnamnesisRequestDto): Promise<AnamnesisModel> {
-    const patient: PatientModel | null = await this.patientRepository.findById(
-      data.patientId
-    );
+    const patient = await this.patientRepository.findById(data.patientId);
 
     if (!patient) {
       throw new Error("Paciente não encontrado com o ID informado.");
     }
 
-    const anamnesis = this.repository.createEntityWithPatient(data, patient);
-    return await this.repository.create(anamnesis);
+    const savedAnamnesis = await this.repository.create(data);
+
+    await this.patientRepository.update(data.patientId, {
+      anamnesis: savedAnamnesis,
+    });
+    return savedAnamnesis;
   }
 
   async findById(id: string): Promise<AnamnesisModel | null> {
