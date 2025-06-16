@@ -23,6 +23,14 @@ export class AnamnesisRepository implements IAnamnesisRepository {
     return await this.ormRepo.findOne({ where: { id } });
   }
 
+  async update(
+    id: string,
+    data: AnamnesisRequestDto
+  ): Promise<AnamnesisModel | null> {
+    await this.ormRepo.update(id, data);
+    return await this.ormRepo.findOne({ where: { id } });
+  }
+
   async delete(id: string): Promise<void> {
     await this.ormRepo.delete(id);
   }

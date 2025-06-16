@@ -34,6 +34,18 @@ export class AnamnesisService implements IAnamnesisService {
     return await this.repository.findById(id);
   }
 
+  async update(
+    id: string,
+    data: AnamnesisRequestDto
+  ): Promise<AnamnesisModel | null> {
+    try {
+      return await this.repository.update(id, data);
+    } catch (error) {
+      console.error("Erro no service ao atualizar anamnese:", error);
+      throw new Error("Erro interno ao atualizar anamnese");
+    }
+  }
+
   async delete(id: string): Promise<void> {
     try {
       await this.repository.delete(id);

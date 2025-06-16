@@ -3,9 +3,10 @@ import { container, inject, injectable } from "tsyringe";
 import { AnamnesisRequestDto } from "../dto/anamnesis/anamnesis-request-dto";
 import { IAnamnesisService } from "../service/contracts/i-anamnesis-service";
 import { AnamnesisModel } from "../model/anamnesis-model";
+import { IAnamnesisController } from "./contracts/i-anamnesis-controller";
 
 @injectable()
-export class AnamnesisController {
+export class AnamnesisController implements IAnamnesisController {
   constructor(
     @inject("AnamnesisService") private anamnesisService: IAnamnesisService
   ) {}
@@ -33,6 +34,26 @@ export class AnamnesisController {
     } catch (error) {
       console.error("Erro no controller ao buscar anamnese por ID:", error);
       return res.status(500).json({ message: "Erro ao buscar anamnese" });
+    }
+  }
+
+  async update(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params;
+      const anamnesisData = req.body;
+
+      const updatedAnamnesis = await this.anamnesisService.update(
+        id,
+        anamnesisData
+      );
+
+      if (!updatedAnamnesis)
+        return res.status(404).json({ message: "Anamnese não encontrada" });
+
+      return res.status(200).json(updatedAnamnesis);
+    } catch (error) {
+      console.error("Erro no controller ao atualizar anamnese:", error);
+      return res.status(500).json({ message: "Erro ao atualizar anamnese" });
     }
   }
 

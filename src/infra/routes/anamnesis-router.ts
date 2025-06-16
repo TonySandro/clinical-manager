@@ -25,6 +25,10 @@ export class AnamnesisRouter {
       await this.anamnesisController.getById(req, res).catch(next);
     });
 
+    this.router.patch("/anamnesis/:id", async (req, res, next) => {
+      await this.anamnesisController.update(req, res).catch(next);
+    });
+
     this.router.delete("/anamnesis/:id", async (req, res, next) => {
       await this.anamnesisController.delete(req, res).catch(next);
     });
