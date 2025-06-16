@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  mysql:
+    container_name: clinical-mysql-container
+    image: mysql/mysql-server:latest
+    restart: always
+    env_file: ./.env
+    environment:
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+    volumes:
+      - mysql_course:/var/lib/mysql
+    ports:
+      - "$MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT"
+
+  api:
+    container_name: clinical-manager-container
+    build:
+      context: .
+    image: node:20
+    working_dir: /usr/src/clinical-manager
+    restart: always
+    env_file: ./.env
+    environment:
+      - DB_HOST=$MYSQLDB_HOST
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+    command: >
+      sh -c "npm install --omit=dev && npm run start"
+    ports:
+      - "3301:3301"
+    volumes:
+      - ./dist:/usr/src/clinical-manager/dist/
+      - ./package.json:/usr/src/clinical-manager/package.json
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_course:
