@@ -20,9 +20,7 @@ AppDataSource.initialize()
     app.use("/api", anamnesisRouter.router);
     app.use("/api", patientRouter.router);
 
-    const PORT = process.env.PORT || 3333;
-    app.listen(PORT, () =>
-      console.log(`server running at http://localhost:${PORT}`)
-    );
+    const PORT = process.env.PORT;
+    app.listen(PORT, () => console.log(`server running at PORT:${PORT}`));
   })
   .catch(console.error);
