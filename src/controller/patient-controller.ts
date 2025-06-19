@@ -3,6 +3,7 @@ import { inject, injectable } from "tsyringe";
 import { IPatientController } from "./contracts/i-patient-controller";
 import { PatientModel } from "../model/patient-model";
 import { IPatientService } from "../service/contracts/i-patient-service";
+import { PatientRequestDto } from "../dto/patient/patient-request-dto";
 
 @injectable()
 export class PatientController implements IPatientController {
@@ -12,7 +13,7 @@ export class PatientController implements IPatientController {
 
   async create(req: Request, res: Response): Promise<void> {
     try {
-      const patient = req.body as PatientModel;
+      const patient = req.body as PatientRequestDto;
       await this.patientService.create(patient);
 
       res.status(201).json({ message: "Paciente criado com sucesso" });

@@ -3,6 +3,7 @@ import { PatientModel } from "../model/patient-model";
 import { IPatientRepository } from "../repositories/contracts/i-patient-repository";
 import { IPatientService } from "./contracts/i-patient-service";
 import { PatientRepository } from "../repositories/patient-repository";
+import { PatientRequestDto } from "../dto/patient/patient-request-dto";
 
 @injectable()
 export class PatientService implements IPatientService {
@@ -11,7 +12,7 @@ export class PatientService implements IPatientService {
     private readonly patientRepository: IPatientRepository
   ) {}
 
-  public async create(patient: PatientModel): Promise<PatientModel> {
+  public async create(patient: PatientRequestDto): Promise<PatientModel> {
     try {
       return await this.patientRepository.create(patient);
     } catch (error) {

@@ -3,6 +3,7 @@ import { Database } from "../infra/db-connection";
 import { inject, injectable } from "tsyringe";
 import { PatientModel } from "../model/patient-model";
 import { IPatientRepository } from "./contracts/i-patient-repository";
+import { PatientRequestDto } from "../dto/patient/patient-request-dto";
 
 @injectable()
 export class PatientRepository implements IPatientRepository {
@@ -12,7 +13,7 @@ export class PatientRepository implements IPatientRepository {
     this.ormRepo = this.database.getDataSource().getRepository(PatientModel);
   }
 
-  async create(patient: PatientModel): Promise<PatientModel> {
+  async create(patient: PatientRequestDto): Promise<PatientModel> {
     const newPatient = this.ormRepo.create(patient);
     return await this.ormRepo.save(newPatient);
   }
