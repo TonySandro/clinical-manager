@@ -1,9 +1,10 @@
-import { Repository } from "typeorm";
+import { Repository, Between } from "typeorm";
 import { Database } from "../infra/db-connection";
 import { inject, injectable } from "tsyringe";
 import { PatientModel } from "../model/patient-model";
 import { IPatientRepository } from "./contracts/i-patient-repository";
 import { PatientRequestDto } from "../dto/patient/patient-request-dto";
+import { startOfMonth, endOfMonth } from "date-fns";
 
 @injectable()
 export class PatientRepository implements IPatientRepository {
@@ -44,5 +45,22 @@ export class PatientRepository implements IPatientRepository {
 
     const updatedPatient = Object.assign(existingPatient, patient);
     return await this.ormRepo.save(updatedPatient);
+  }
+
+  async countTotalPatients(userId: string): Promise<number> {
+    return await this.ormRepo.count({
+      where: {
+        // Filtro por userId quando criar o relacionamento User → Patient
+      },
+    });
+  }
+
+  async countNewPatientsByMonth(userId: string, date: Date): Promise<number> {
+    return await this.ormRepo.count({
+      where: {
+        createdAt: Between(startOfMonth(date), endOfMonth(date)),
+        // Filtro por userId quando o campo existir
+      },
+    });
   }
 }

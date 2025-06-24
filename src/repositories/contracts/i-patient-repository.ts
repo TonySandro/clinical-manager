@@ -10,4 +10,6 @@ export interface IPatientRepository {
     id: string,
     patient: Partial<PatientModel>
   ): Promise<PatientModel | null>;
+  countTotalPatients(userId: string): Promise<number>;
+  countNewPatientsByMonth(userId: string, date: Date): Promise<number>;
 }
