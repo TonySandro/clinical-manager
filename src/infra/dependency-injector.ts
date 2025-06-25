@@ -15,6 +15,11 @@ import { AnamnesisController } from "../controller/anamnesis-controller";
 import { IAnamnesisController } from "../controller/contracts/i-anamnesis-controller";
 import { IAnamnesisService } from "../service/contracts/i-anamnesis-service";
 import { AnamnesisService } from "../service/anamnesis-service";
+import { StatisticsService } from "../service/statistics-service";
+import { IStatisticsService } from "../service/contracts/i-statistics-service";
+import { IStatisticsController } from "../controller/contracts/i-statistics-controller";
+import { StatisticsController } from "../controller/statistics-controller";
+import { StatisticsRouter } from "./routes/statistics-router";
 
 container.register<Database>(Database, { useClass: Database });
 
@@ -31,6 +36,9 @@ container.register<IPatientService>("PatientService", {
 container.register<IAnamnesisService>("AnamnesisService", {
   useClass: AnamnesisService,
 });
+container.register<IStatisticsService>("StatisticsService", {
+  useClass: StatisticsService,
+});
 
 container.register<IPatientController>("PatientController", {
   useClass: PatientController,
@@ -38,6 +46,10 @@ container.register<IPatientController>("PatientController", {
 container.register<IAnamnesisController>("AnamnesisController", {
   useClass: AnamnesisController,
 });
+container.register<IStatisticsController>("StatisticsController", {
+  useClass: StatisticsController,
+});
 
 container.register(PatientRouter, { useClass: PatientRouter });
 container.register(AnamnesisRouter, { useClass: AnamnesisRouter });
+container.register(StatisticsRouter, { useClass: StatisticsRouter });
