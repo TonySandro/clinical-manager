@@ -4,16 +4,22 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { AnamnesisModel } from "./anamnesis-model";
+import { AccountModel } from "./account-model";
 
 @Entity("patient")
 export class PatientModel {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
+
+  @ManyToOne(() => AccountModel)
+  @JoinColumn()
+  userId?: AccountModel;
 
   @Column()
   name!: string;
