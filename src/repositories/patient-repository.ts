@@ -26,8 +26,10 @@ export class PatientRepository implements IPatientRepository {
     });
   }
 
-  async findAll(): Promise<PatientModel[]> {
-    return await this.ormRepo.find();
+  async findAll(accountId: string): Promise<PatientModel[]> {
+    return await this.ormRepo.find({
+      where: { accountId },
+    });
   }
 
   async delete(id: string): Promise<void> {

@@ -40,7 +40,9 @@ export class PatientController implements IPatientController {
 
   async findAll(req: Request, res: Response): Promise<Response> {
     try {
-      const patients = await this.patientService.findAll();
+      const patients = await this.patientService.findAll(
+        req.query.accountId as string
+      );
       return res.status(200).json(patients);
     } catch (error) {
       console.error("Erro no controller ao buscar todos os pacientes:", error);
