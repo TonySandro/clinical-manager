@@ -17,9 +17,8 @@ export class PatientModel {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @ManyToOne(() => AccountModel)
-  @JoinColumn()
-  userId?: AccountModel;
+  @Column()
+  accountId!: string;
 
   @Column()
   name!: string;
