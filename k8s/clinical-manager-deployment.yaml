@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clinical-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clinical-manager
+  template:
+    metadata:
+      labels:
+        app: clinical-manager
+    spec:
+      initContainers:
+        - name: wait-for-mysql
+          image: busybox:1.28
+          command:
+            - sh
+            - -c
+            - until nc -z clinical-mysql-service 3306; do echo waiting for mysql; sleep 2; done;
+      containers:
+        - name: clinical-manager
+          image: clinical-manager:local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3301
+          env:
+            - name: PORT
+              value: "3301"
+            - name: DB_HOST
+              value: clinical-mysql-service
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: MYSQLDB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: MYSQLDB_ROOT_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: MYSQLDB_DATABASE
+            - name: DB_PORT
+              value: "3306"
