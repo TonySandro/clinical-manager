@@ -20,6 +20,7 @@ import { IStatisticsService } from "../service/contracts/i-statistics-service";
 import { IStatisticsController } from "../controller/contracts/i-statistics-controller";
 import { StatisticsController } from "../controller/statistics-controller";
 import { StatisticsRouter } from "./routes/statistics-router";
+import { HealthRouter } from "./routes/health-router";
 
 container.register<Database>(Database, { useClass: Database });
 
@@ -53,3 +54,4 @@ container.register<IStatisticsController>("StatisticsController", {
 container.register(PatientRouter, { useClass: PatientRouter });
 container.register(AnamnesisRouter, { useClass: AnamnesisRouter });
 container.register(StatisticsRouter, { useClass: StatisticsRouter });
+container.register(HealthRouter, { useClass: HealthRouter });

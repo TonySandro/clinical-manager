@@ -7,6 +7,7 @@ import { PatientRouter } from "./infra/routes/patient-router";
 import { AppDataSource } from "./infra/typeorm-config";
 import { AnamnesisRouter } from "./infra/routes/anamnesis-router";
 import { StatisticsRouter } from "./infra/routes/statistics-router";
+import { HealthRouter } from "./infra/routes/health-router";
 
 AppDataSource.initialize()
   .then(async () => {
@@ -18,10 +19,12 @@ AppDataSource.initialize()
     const patientRouter = container.resolve(PatientRouter);
     const anamnesisRouter = container.resolve(AnamnesisRouter);
     const statisticsRouter = container.resolve(StatisticsRouter);
+    const healthRouter = container.resolve(HealthRouter);
 
     app.use("/api", anamnesisRouter.router);
     app.use("/api", patientRouter.router);
     app.use("/api", statisticsRouter.router);
+    app.use("/api", healthRouter.router);
 
     const PORT = process.env.PORT;
     app.listen(PORT, () => console.log(`server running at PORT:${PORT}`));
