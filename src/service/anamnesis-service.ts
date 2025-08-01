@@ -6,7 +6,6 @@ import { AnamnesisModel } from "../model/anamnesis-model";
 import { AnamnesisRepository } from "../repositories/anamnesis-repository";
 import { PatientRepository } from "../repositories/patient-repository";
 import { IPatientRepository } from "../repositories/contracts/i-patient-repository";
-import { PatientModel } from "../model/patient-model";
 
 @injectable()
 export class AnamnesisService implements IAnamnesisService {
