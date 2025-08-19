@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: clinical-config
 data:
-  MYSQLDB_DATABASE: "clinical_database"
-  MYSQLDB_USER: "root"
+  MYSQLDB_DATABASE: "neuroapp_database"
+  MYSQLDB_USER: "admin"
   MYSQLDB_ROOT_PASSWORD: "admintsd"

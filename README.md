@@ -70,14 +70,14 @@ yarn ou npm i
 
 ### Configuração do Banco de Dados (MySQL):
 
-Crie um banco de dados chamado `clinical_database`.
+Crie um banco de dados chamado `neuroapp_database`.
 
 Configure o arquivo `.env`:
 
 ```
-MYSQLDB_USER=root
+MYSQLDB_USER=admin
 MYSQLDB_ROOT_PASSWORD=suasenha
-MYSQLDB_DATABASE=clinical_database
+MYSQLDB_DATABASE=neuroapp_database
 MYSQLDB_HOST=mysql
 MYSQLDB_LOCAL_PORT=
 MYSQLDB_DOCKER_PORT=3306
