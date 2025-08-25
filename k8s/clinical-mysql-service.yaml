@@ -1,10 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: clinical-mysql-service
+  name: clinical-manager-service
 spec:
   selector:
-    app: clinical-mysql
+    app: clinical-manager
+  type: NodePort
   ports:
-    - port: 3306
-      targetPort: 3306
+    - name: http
+      port: 3301
+      targetPort: 3301
+      nodePort: 30001

@@ -12,13 +12,6 @@ spec:
       labels:
         app: clinical-manager
     spec:
-      initContainers:
-        - name: wait-for-mysql
-          image: busybox:1.28
-          command:
-            - sh
-            - -c
-            - until nc -z clinical-mysql-service 3306; do echo waiting for mysql; sleep 2; done;
       containers:
         - name: clinical-manager
           image: clinical-manager:local
@@ -27,23 +20,32 @@ spec:
             - containerPort: 3301
           env:
             - name: PORT
-              value: "3301"
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: PORT
             - name: DB_HOST
-              value: clinical-mysql-service
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: DB_HOST
             - name: DB_USER
               valueFrom:
                 configMapKeyRef:
                   name: clinical-config
-                  key: MYSQLDB_USER
+                  key: DB_USER
             - name: DB_PASSWORD
               valueFrom:
                 configMapKeyRef:
                   name: clinical-config
-                  key: MYSQLDB_ROOT_PASSWORD
+                  key: DB_PASSWORD
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
                   name: clinical-config
-                  key: MYSQLDB_DATABASE
+                  key: DB_NAME
             - name: DB_PORT
-              value: "3306"
+              valueFrom:
+                configMapKeyRef:
+                  name: clinical-config
+                  key: DB_PORT
